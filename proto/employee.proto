@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package employee;
+
+option go_package = "./pb";
+
+import "proto/date.proto";
+
+// スカラ型
+message Employee {
+  // 1とか2はタグ番号
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  Occupation occupation = 4;
+  repeated string phone_number = 5;
+  // <key型, value型>
+  map<string, Company.Project> Project = 6;
+  oneof profile {
+    string text = 7;
+    Video video = 8;
+  }
+  date.Date birthday = 9;
+}
+
+// 列挙型
+enum Occupation {
+  // 必ずタグ番号0から始める必要がある
+  // 0は慣習としてUNKNOWNを割り当てる
+  OCCUPATION_UNKNOWN = 0;
+  ENGINEER = 1;
+  DESIGNER = 2;
+  MANAGER = 3;
+}
+
+// メッセージのネスト
+message Company {
+  message Project {}
+}
+
+message Project {}
+
+message Video {}
