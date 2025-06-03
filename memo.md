@@ -73,3 +73,35 @@ Microservice間の通信
 - Bidirectional Streaming RPC
   -  N req N res
   - チャットやオンライン対戦ゲームなど
+
+
+### ダックタイピング
+Goにおけるダックタイピングとは、オブジェクトの型ではなく、そのオブジェクトが持つメソッドの実装によって振る舞いを決定するプログラミングの概念です。Goでは、インターフェースを利用してこの概念を実現します。
+
+ダックタイピングの由来
+「もしそれがアヒルのように歩き、アヒルのように鳴くなら、それはアヒルである」という考え方に基づいています。つまり、オブジェクトが特定のメソッドを持っていれば、その型が何であれ、そのオブジェクトを特定のインターフェースとして扱うことができます。
+
+```
+package main
+
+import "fmt"
+
+// Dog型の定義
+type Dog struct {
+    Name string
+}
+
+// Dog型に関連付けられたメソッド
+// (d Dog)はこのメソッドが属する構造体を表す
+func (d Dog) Speak() string {
+    return "Woof! My name is " + d.Name
+}
+
+func main() {
+    // Dog型のインスタンスを作成
+    myDog := Dog{Name: "Buddy"}
+
+    // Speakメソッドを呼び出し
+    fmt.Println(myDog.Speak())
+}
+```
