@@ -4,9 +4,12 @@ import (
 	"context"
 	"fmt"
 	"grpc-lesson/pb"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
+	"os"
+	"time"
 
 	"google.golang.org/grpc"
 )
@@ -36,6 +39,39 @@ func (*server) ListFiles(ctx context.Context, req *pb.ListFilesRequest) (*pb.Lis
 		Filenames: filenames,
 	}
 	return res, nil
+}
+
+func (*server) Download(req *pb.DownloadRequest, stream pb.FileService_DownloadServer) error {
+	fmt.Println("Download called")
+	filename := req.GetFilename()
+	filePath := fmt.Sprintf("/Users/018018s/dev/go-grpc/grpc-lesson/storage/%s", filename)
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		return err
+	}
+
+	defer file.Close()
+	buffer := make([]byte, 5)
+	for {
+		n, err := file.Read(buffer)
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			return err
+		}
+
+		res := &pb.DownloadResponse{
+			Data: buffer[:n],
+		}
+		sendErr := stream.Send(res)
+		if sendErr != nil {
+			return sendErr
+		}
+		time.Sleep(1 * time.Second) // Simulate delay for streaming
+	}
+	return nil
 }
 
 func main() {
