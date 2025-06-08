@@ -277,6 +277,94 @@ func (x *UploadResponse) GetSize() int32 {
 	return 0
 }
 
+type UploadAndNotifyProgressRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Data          []byte                 `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadAndNotifyProgressRequest) Reset() {
+	*x = UploadAndNotifyProgressRequest{}
+	mi := &file_proto_file_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadAndNotifyProgressRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadAndNotifyProgressRequest) ProtoMessage() {}
+
+func (x *UploadAndNotifyProgressRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_file_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadAndNotifyProgressRequest.ProtoReflect.Descriptor instead.
+func (*UploadAndNotifyProgressRequest) Descriptor() ([]byte, []int) {
+	return file_proto_file_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UploadAndNotifyProgressRequest) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type UploadAndNotifyProgressResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Msg           string                 `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadAndNotifyProgressResponse) Reset() {
+	*x = UploadAndNotifyProgressResponse{}
+	mi := &file_proto_file_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadAndNotifyProgressResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadAndNotifyProgressResponse) ProtoMessage() {}
+
+func (x *UploadAndNotifyProgressResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_file_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadAndNotifyProgressResponse.ProtoReflect.Descriptor instead.
+func (*UploadAndNotifyProgressResponse) Descriptor() ([]byte, []int) {
+	return file_proto_file_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UploadAndNotifyProgressResponse) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
 var File_proto_file_proto protoreflect.FileDescriptor
 
 const file_proto_file_proto_rawDesc = "" +
@@ -292,11 +380,16 @@ const file_proto_file_proto_rawDesc = "" +
 	"\rUploadRequest\x12\x12\n" +
 	"\x04data\x18\x01 \x01(\fR\x04data\"$\n" +
 	"\x0eUploadResponse\x12\x12\n" +
-	"\x04size\x18\x01 \x01(\x05R\x04size2\xbf\x01\n" +
+	"\x04size\x18\x01 \x01(\x05R\x04size\"4\n" +
+	"\x1eUploadAndNotifyProgressRequest\x12\x12\n" +
+	"\x04data\x18\x01 \x01(\fR\x04data\"3\n" +
+	"\x1fUploadAndNotifyProgressResponse\x12\x10\n" +
+	"\x03msg\x18\x01 \x01(\tR\x03msg2\xab\x02\n" +
 	"\vFileService\x12<\n" +
 	"\tListFiles\x12\x16.file.ListFilesRequest\x1a\x17.file.ListFilesResponse\x12;\n" +
 	"\bDownload\x12\x15.file.DownloadRequest\x1a\x16.file.DownloadResponse0\x01\x125\n" +
-	"\x06Upload\x12\x13.file.UploadRequest\x1a\x14.file.UploadResponse(\x01B\x06Z\x04./pbb\x06proto3"
+	"\x06Upload\x12\x13.file.UploadRequest\x1a\x14.file.UploadResponse(\x01\x12j\n" +
+	"\x17UploadAndNotifyProgress\x12$.file.UploadAndNotifyProgressRequest\x1a%.file.UploadAndNotifyProgressResponse(\x010\x01B\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_proto_file_proto_rawDescOnce sync.Once
@@ -310,24 +403,28 @@ func file_proto_file_proto_rawDescGZIP() []byte {
 	return file_proto_file_proto_rawDescData
 }
 
-var file_proto_file_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_file_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_proto_file_proto_goTypes = []any{
-	(*ListFilesRequest)(nil),  // 0: file.ListFilesRequest
-	(*ListFilesResponse)(nil), // 1: file.ListFilesResponse
-	(*DownloadRequest)(nil),   // 2: file.DownloadRequest
-	(*DownloadResponse)(nil),  // 3: file.DownloadResponse
-	(*UploadRequest)(nil),     // 4: file.UploadRequest
-	(*UploadResponse)(nil),    // 5: file.UploadResponse
+	(*ListFilesRequest)(nil),                // 0: file.ListFilesRequest
+	(*ListFilesResponse)(nil),               // 1: file.ListFilesResponse
+	(*DownloadRequest)(nil),                 // 2: file.DownloadRequest
+	(*DownloadResponse)(nil),                // 3: file.DownloadResponse
+	(*UploadRequest)(nil),                   // 4: file.UploadRequest
+	(*UploadResponse)(nil),                  // 5: file.UploadResponse
+	(*UploadAndNotifyProgressRequest)(nil),  // 6: file.UploadAndNotifyProgressRequest
+	(*UploadAndNotifyProgressResponse)(nil), // 7: file.UploadAndNotifyProgressResponse
 }
 var file_proto_file_proto_depIdxs = []int32{
 	0, // 0: file.FileService.ListFiles:input_type -> file.ListFilesRequest
 	2, // 1: file.FileService.Download:input_type -> file.DownloadRequest
 	4, // 2: file.FileService.Upload:input_type -> file.UploadRequest
-	1, // 3: file.FileService.ListFiles:output_type -> file.ListFilesResponse
-	3, // 4: file.FileService.Download:output_type -> file.DownloadResponse
-	5, // 5: file.FileService.Upload:output_type -> file.UploadResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: file.FileService.UploadAndNotifyProgress:input_type -> file.UploadAndNotifyProgressRequest
+	1, // 4: file.FileService.ListFiles:output_type -> file.ListFilesResponse
+	3, // 5: file.FileService.Download:output_type -> file.DownloadResponse
+	5, // 6: file.FileService.Upload:output_type -> file.UploadResponse
+	7, // 7: file.FileService.UploadAndNotifyProgress:output_type -> file.UploadAndNotifyProgressResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -344,7 +441,7 @@ func file_proto_file_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_file_proto_rawDesc), len(file_proto_file_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
